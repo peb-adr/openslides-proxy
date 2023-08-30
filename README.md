@@ -1,9 +1,10 @@
 # OpenSlides Proxy
 
-The proxy is the entrypoint for traffic going into an OpenSlides instance and
-hides all the services needed for production behind a single port. On the
-docker container this will be port 8000. An arbitrary port from the host can
-then be forwarded to that (e.g. 443->8000).
+The proxy - based on [caddy](https://hub.docker.com/_/caddy) - is the entrypoint
+for traffic going into an OpenSlides instance and hides all the services needed
+for production behind a single port. On the docker container this will be port
+8000 . An arbitrary port from the host can then be forwarded to that (e.g.
+443->8000).
 
 ## HTTPS
 
