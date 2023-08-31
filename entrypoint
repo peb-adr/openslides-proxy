@@ -19,6 +19,7 @@ MEDIA_HOST="${MEDIA_HOST:-media}" MEDIA_PORT="${MEDIA_PORT:-9006}" \
 MANAGE_HOST="${MANAGE_HOST:-manage}" MANAGE_PORT="${MANAGE_PORT:-9008}" \
 CLIENT_HOST="${CLIENT_HOST:-client}" CLIENT_PORT="${CLIENT_PORT:-9001}" \
 VOTE_HOST="${VOTE_HOST:-vote}" VOTE_PORT="${VOTE_PORT:-9013}" \
+REQUEST_BODY_MAX_SIZE="${REQUEST_BODY_MAX_SIZE:-250MB}" \
 envsubst < "$config" > "$config.out" && mv -f "$config.out" "$config"
 
 jq_write() {

@@ -22,7 +22,7 @@
       "servers": {
         "srv0": {
           "listen": [":8000"],
-          "allow_h2c": true,
+          "protocols": ["h1","h2"],
           "routes": [
             {
               "handle": [
@@ -61,6 +61,10 @@
             },
             {
               "handle": [
+                {
+                  "handler": "request_body",
+                  "max_size": $REQUEST_BODY_MAX_SIZE
+                },
                 {
                   "handler": "reverse_proxy",
                   "upstreams": [
