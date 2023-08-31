@@ -62,6 +62,14 @@
             {
               "handle": [
                 {
+                  "handler": "headers",
+                  "response": {
+                    "add": {
+                      "Request-Body-Max-Size": ["$REQUEST_BODY_MAX_SIZE"]
+                    }
+                  }
+                },
+                {
                   "handler": "request_body",
                   "max_size": $REQUEST_BODY_MAX_SIZE
                 },
