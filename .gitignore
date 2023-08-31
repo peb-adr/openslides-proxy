@@ -1,0 +1,11 @@
+# General
+*.swp
+*.swo
+*.log
+*~
+.DS_Store
+.idea
+*.code-workspace
+
+# certs
+*.pem
