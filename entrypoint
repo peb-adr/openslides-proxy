@@ -64,4 +64,10 @@ else
   jq_write "del(.apps.http.servers.srv0.routes[-2])"
 fi
 
+### Strict-Transport-Security ###
+if [ -n "$HSTS" ]; then
+  handler="{ \"handler\": \"headers\", \"response\": { \"add\": { \"Strict-Transport-Security\": [ \"${HSTS}\" ] } } }"
+  jq_write ".apps.http.servers.srv0.routes[].handle |= [ ${handler} ] + ."
+fi
+
 exec "$@"

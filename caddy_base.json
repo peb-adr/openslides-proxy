@@ -189,9 +189,9 @@
             {
               "handle": [
                 {
+                  "handler": "static_response",
                   "body": "Misdirected Request",
                   "close": true,
-                  "handler": "static_response",
                   "status_code": 421
                 }
               ],

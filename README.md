@@ -25,3 +25,12 @@ and providing cert and key files at the specified location. This is mostly for
 dev and testing setups and is not useful for a public domain as the cert is not
 issued by a trusted CA and therefore not trusted by browsers. If set, this
 overrules `ENABLE_AUTO_HTTPS`.
+
+## HSTS (HTTP Strict-Transport-Security)
+
+Set `HSTS=<header_value>` in order to add the HTTP header
+
+    Strict-Transport-Security: <header_value>
+
+to every response. See [mozilla's documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
+for more details.
