@@ -1,4 +1,4 @@
-name: Copy staging commits to main
+name: Cherry pick staging PRs merged into main
 
 on:
   pull_request:
@@ -23,6 +23,7 @@ jobs:
     - name: Fetch and checkout latest staging branch
       run: |
         branch=$(git ls-remote --heads origin 'staging*' | tail -1 | awk 'gsub(".*refs/heads/","")')
+        git fetch origin $branch
         git checkout $branch
 
     - name: Set git credentials
