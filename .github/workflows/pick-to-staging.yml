@@ -28,6 +28,7 @@ jobs:
 
       - name: Fetch and checkout latest staging branch
         run: |
+          set -x
           branch=$(git ls-remote --heads origin 'staging*' | tail -1 | awk 'gsub(".*refs/heads/","")')
           git fetch origin $branch
           git checkout $branch
@@ -40,7 +41,7 @@ jobs:
       - name: Cherry-pick new commit
         id: cherry-pick
         run: |
-          git fetch origin
+          set -x
           git cherry-pick ${{ github.sha }} || {
             echo "error=1" >> $GITHUB_OUTPUT
             git add .
