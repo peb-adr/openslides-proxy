@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+CHONGE
+
+>>>>>>> 7ca15e7 (CHONGE 1 (#20))
 # OpenSlides Proxy
 
 The proxy - based on [caddy](https://hub.docker.com/_/caddy) - is the entrypoint
