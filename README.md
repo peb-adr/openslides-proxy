@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+CHANGE #1
+CHANGE #2
+
+>>>>>>> 3559969 (Testpr (#9))
 # OpenSlides Proxy
 
 The proxy - based on [caddy](https://hub.docker.com/_/caddy) - is the entrypoint
