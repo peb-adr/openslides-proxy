@@ -4,15 +4,15 @@ on:
   pull_request:
     types:
       - closed
-      - synchronize
     branches:
       - 'main'
 
 
 jobs:
   create-pr-for-staging:
-    #if: github.event.pull_request.merged == true
-    #if: contains(github.event.pull_request.labels.*.name, 'staging')
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'staging')
     name: Create PR against staging branch
     runs-on: ubuntu-latest
 
@@ -20,49 +20,49 @@ jobs:
       - name: DEBUG
         run: |
           echo "${{ toJson(github) }}"
-      #- name: Checkout main
-      #  uses: actions/checkout@v4
-      #  with:
-      #    ref: main
 
-      #- name: Fetch and checkout latest staging branch
-      #  run: |
-      #    branch=$(git ls-remote --heads origin 'staging*' | tail -1 | awk 'gsub(".*refs/heads/","")')
-      #    git fetch origin $branch
-      #    git checkout $branch
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
 
-      #- name: Set git credentials
-      #  run: |
-      #    git config --global user.name openslides-automation
-      #    git config --global user.email openslides-automation@users.noreply.github.com
+      - name: Fetch and checkout latest staging branch
+        run: |
+          branch=$(git ls-remote --heads origin 'staging*' | tail -1 | awk 'gsub(".*refs/heads/","")')
+          git fetch origin $branch
+          git checkout $branch
 
-      #- name: Cherry-pick new commit
-      #  id: cherry-pick
-      #  run: |
-      #    git fetch origin
-      #    git cherry-pick ${{ github.sha }} || {
-      #      echo "error=1" >> $GITHUB_OUTPUT
-      #      git add .
-      #      git cherry-pick --continue
-      #    }
+      - name: Set git credentials
+        run: |
+          git config --global user.name openslides-automation
+          git config --global user.email openslides-automation@users.noreply.github.com
 
-      #- name: Generate access token
-      #  uses: tibdex/github-app-token@v2
-      #  id: generate-token
-      #  with:
-      #    app_id: ${{ secrets.AUTOMATION_APP_ID }}
-      #    private_key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+      - name: Cherry-pick new commit
+        id: cherry-pick
+        run: |
+          git fetch origin
+          git cherry-pick ${{ github.sha }} || {
+            echo "error=1" >> $GITHUB_OUTPUT
+            git add .
+            git cherry-pick --continue
+          }
 
-      #- name: Create or update PR
-      #  uses: peter-evans/create-pull-request@v6
-      #  with:
-      #    token: ${{ steps.generate-token.outputs.token }}
-      #    commit-message: ${{ github.event.commits[0].message }}
-      #    branch: apply/commit-${{ github.sha }}
-      #    delete-branch: true
-      #    title: ${{ github.event.commits[0].message }}
-      #    body: "Triggered by commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})\n\n${{ steps.cherry-pick.outputs.error && 'There were conflicts during the cherry-pick. These were commited without any resolving. Please resolve them manually and push the result to this branch before merging.' || 'The cherry-pick was successful without any conflicts. You should be able to simply merge this PR.' }}"
-      #    reviewers: ${{ github.event.commits[0].author.username }}
-      #    assignees: ${{ github.event.commits[0].author.username }}
-      #    labels: staging-port
-      #    milestone: 4
+      - name: Generate access token
+        uses: tibdex/github-app-token@v2
+        id: generate-token
+        with:
+          app_id: ${{ secrets.AUTOMATION_APP_ID }}
+          private_key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+
+      - name: Create or update PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          branch: apply/commit-${{ github.sha }}
+          delete-branch: true
+          title: "Stage: ${{ github.event.pull_request.title }}"
+          body: "Triggered by commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})\n\n${{ steps.cherry-pick.outputs.error && 'There were conflicts during the cherry-pick. These were commited without any resolving. Please resolve them manually and push the result to this branch before merging.' || 'The cherry-pick was successful without any conflicts. You should be able to simply merge this PR.' }}"
+          reviewers: ${{ github.event.pull_request.user.username }}
+          assignees: ${{ github.event.pull_request.user.username }}
+          labels: staging-port
+          milestone: 4
