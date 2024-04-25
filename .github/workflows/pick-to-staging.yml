@@ -31,6 +31,7 @@ jobs:
         run: |
           set -x
           git log --oneline --decorate --graph --all
+          git show
           branch=$(git ls-remote --heads origin 'staging*' | tail -1 | awk 'gsub(".*refs/heads/","")')
           #git fetch origin $branch
           #git checkout $branch
