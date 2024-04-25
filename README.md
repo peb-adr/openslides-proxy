@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 HEHE CONFLICT
+=======
+CHONGE
+>>>>>>> 683b933 (CHONGE 1 (#38))
 
 # OpenSlides Proxy
 
