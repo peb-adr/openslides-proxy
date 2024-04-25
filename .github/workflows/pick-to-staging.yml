@@ -50,6 +50,7 @@ jobs:
       - name: Cherry-pick new commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.1
         with:
+          token: ${{ steps.generate-token.outputs.token }}
           branch: ${{ steps.get-staging-branch.outputs.branch }}
           labels: staging-port
           title: '[cherry-pick] {old_title}'
