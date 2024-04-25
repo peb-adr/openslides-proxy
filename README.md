@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 CHONGE
+=======
+HEHE CONFLICT
+>>>>>>> 28d3aea (conflict)
 
 # OpenSlides Proxy
 
