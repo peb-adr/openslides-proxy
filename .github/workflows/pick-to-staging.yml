@@ -27,16 +27,14 @@ jobs:
           ref: main
           fetch-depth: 2
 
-      - name: Determine latest staging branch
-        id: get-staging-branch
+      - name: Fetch and checkout latest staging branch
         run: |
           set -x
           git log --oneline --decorate --graph --all
           git show
           branch=$(git ls-remote --heads origin 'staging*' | tail -1 | awk 'gsub(".*refs/heads/","")')
-          #git fetch origin $branch
-          #git checkout $branch
-          echo "branch=$branch" > $GITHUB_OUTPUT
+          git fetch origin $branch
+          git checkout $branch
 
       - name: Set git credentials
         run: |
