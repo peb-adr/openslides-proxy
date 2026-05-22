@@ -1,7 +1,0 @@
-    manage:
-      loadBalancer:
-        servers:
-          # h2c = HTTP/2 Cleartext (unencrypted) for gRPC
-          - url: "h2c://${MANAGE_HOST}:${MANAGE_PORT}"
-        # Forward the original Host header to the backend service
-        passHostHeader: true

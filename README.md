@@ -11,7 +11,6 @@ This service:
   or with certs retrieved via ACME protocol (e.g. lets encrypt) for production
 - Routes requests to appropriate microservices based on URL paths
 - Handles WebSocket connections for real-time features
-- Supports gRPC communication for the manage service
 
 ## Configuration
 

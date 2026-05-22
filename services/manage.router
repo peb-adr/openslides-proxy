@@ -1,5 +1,0 @@
-    manage:
-      rule: "Header(`Content-Type`, `application/grpc`)"
-      service: manage
-      entryPoints:
-        - main
