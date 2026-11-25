@@ -15,7 +15,7 @@ COPY entrypoint.sh /entrypoint.sh
 COPY certs /certs
 COPY services /services
 COPY templates /templates
-COPY plugins-local /plugins-local
+COPY plugins-local plugins-local
 
 # Create dynamic config directory and make entrypoint executable
 RUN mkdir -p /etc/traefik/dynamic
@@ -57,7 +57,6 @@ FROM base AS prod
 RUN adduser -S -D -H appuser
 RUN chown -R appuser /app/ && \
     chown -R appuser /etc/traefik/ && \
-    chown -R appuser ./plugins-local/ && \
     chown appuser /entrypoint.sh
 
 USER appuser
